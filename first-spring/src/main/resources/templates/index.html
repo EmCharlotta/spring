@@ -1,0 +1,31 @@
+
+<!--Описывает главную страницу сайта-->
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head(~{::title})">
+    <title>Главная</title>
+</head>
+<body>
+<header th:fragment="header">
+<nav><!--навигация/меню-->
+    <a href="/"> Главная
+        <!-- тег <а> - ссылка
+        после а - запрос, который отправится на сервер при нажатии кнопки -->
+    </a>
+    <a href="/university/add"> Добавить Университет </a>
+    <a href="/student/add"> Добавить Студента </a>
+    <a href="/event/add"> Добавить Событие </a>
+
+</nav>
+</header>
+
+
+
+<!--подключение изображений из папки static-->
+<!--<img th:src="@{/img/spring.jpg}">-->
+
+<!--подключение js файлов из папки static-->
+<!--<script  th:src="@{/js/index.js}"></script>-->
+</body>
+</html>

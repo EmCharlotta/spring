@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head(~{::title})">
+    <title>Добавление студента</title>
+</head>
+<body>
+<th:block th:insert="index::header"></th:block>
+
+<h3>Добавление студента</h3>
+<form method="post" th:action="@{/student/add}" th:object="${student}">
+    <div>
+        <!--список университетов-->
+        <select name="universityId"> <!-- Границы списка отмечаются select -->
+            <option th:each="university : ${universities}"
+                    th:value="${university.id}"
+                    th:utext="${university.universityName}">
+                <!--each - в ;{} - имя переменной, по которому мы обращаемся
+             к списку университетов (model.addAttribute("universities", universityRepository.findAll());
+             value -
+             utext - то, что увидит пользователь, ему нужно видеть Имя Университета
+             -->
+
+                <!-- option - это каждый отдельный университет. Здесь сделан цикл thymeleaf, похож на foreach, в
+             котором будут формироваться элементы списка
+             Пользователь видит в браузере название университета. Пользователь выбирает один из списка и нажимает
+             кнопку "Добавить".
+             Мы должны получить это на сервер, для этого всему списку мы задаем аттрибут со значением
+             name = "universityId", а каждому элементу списка добавляем аттрибут value = university.id.
+            На сервере мы получим пару, по ключу universityId мы получим конкретный университет, который выбрал
+            пользователь.
+            Если данные из формы не собираются в объект (данные по отдельности), то для элемента формы нужно
+            обязательно задавать name-->
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <!--список событий-->
+        <select name="eventId">
+            <option th:each="event : ${events}"
+                    th:value="${event.id}"
+                    th:utext="${event.eventTitle}">
+                <!--each: ${events} из: model.addAttribute("events", eventRepository.findAll());-->
+            </option>
+        </select>
+    </div>
+
+
+    <div>
+        <!-- Начинаем формировать объект студента
+        Не добавляем аттрибут name, потому что формируем объект-->
+        <input type="text" placeholder="Имя студента" th:field="*{studentName}">
+    </div>
+
+    <div>
+        <input type="number" th:field="*{studentAge}"><!-- На сервер придут строки, но Spring может преобразовать
+        в числа/дату -->
+    </div>
+
+    <button type="submit">Добавить</button>
+
+</form>
+
+
+</body>
+</html>

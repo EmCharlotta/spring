@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head(~{::title})">
+    <title>Добавление университета</title>
+</head>
+<body>
+<th:block th:insert="index::header"></th:block>
+
+<!-- Когда пользователь введет данные, мы хотим, чтобы Spring собрал нам готовый объект класса University-->
+<form method="post" th:action="@{university/add}" th:object="${university}">
+    <!-- Говорим, что данные будут передаваться на сервер методом post th -- значит, используем thymeleaf и идет
+    его синтаксис: @ - ссылка. object - выбрали (поймали) объект.
+
+    То, что пользователь введет в поле universityName будет значением поля "название университета" объекта: -->
+    <input th:field="*{universityName}" type="text" placeholder="название университета"/>
+    <!-- Отображает текстовое поле, тип text - для ввода -->
+    <button type="submit">Добавить</button> <!-- Кнопка Добавить. Тип Submit - Отправляется на сервер -->
+    <!-- -->
+</form>
+
+</body>
+</html>
